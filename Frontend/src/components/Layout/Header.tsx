@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Menu, User, LogOut, PlusCircle, LogIn } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onMenuClick, onCreatePost, onLogin }) => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="glass-effect sticky top-0 z-40 border-b border-white/20">
@@ -66,9 +68,12 @@ const Header: React.FC<HeaderProps> = ({ user, onMenuClick, onCreatePost, onLogi
               >
                 <LogIn className="w-5 h-5" />
                 <span className="hidden sm:inline font-medium">Iniciar Sesión</span>
-              </button>
+          <button
+            onClick={() => navigate('/')}
+            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+          >
             )}
-          </div>
+          </button>
         </div>
       </div>
     </header>

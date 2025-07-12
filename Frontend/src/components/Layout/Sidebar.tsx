@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, Home, User, Settings, FileText, Image, Link as LinkIcon } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -9,14 +10,15 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   const menuItems = [
-    { icon: Home, label: 'Inicio', action: () => {} },
-    { icon: User, label: 'Mi Perfil', action: () => {} },
-    { icon: FileText, label: 'Mis Publicaciones', action: () => {} },
-    { icon: Image, label: 'Mis Imágenes', action: () => {} },
-    { icon: LinkIcon, label: 'Mis Enlaces', action: () => {} },
-    { icon: Settings, label: 'Configuración', action: () => {} },
+    { icon: Home, label: 'Inicio', action: () => navigate('/') },
+    { icon: User, label: 'Mi Perfil', action: () => navigate('/profile') },
+    { icon: FileText, label: 'Mis Publicaciones', action: () => navigate('/my-posts') },
+    { icon: Image, label: 'Mis Imágenes', action: () => navigate('/my-images') },
+    { icon: LinkIcon, label: 'Mis Enlaces', action: () => navigate('/my-links') },
+    { icon: Settings, label: 'Configuración', action: () => navigate('/settings') },
   ];
 
   return (

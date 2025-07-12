@@ -71,3 +71,23 @@
 .image-zoom-in {
   animation: imageZoomIn 0.3s ease-out;
 }
+/* Estilos para el perfil estilo Instagram */
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
+/* Grid responsivo para publicaciones */
+@media (max-width: 640px) {
+  .grid-cols-3 {
+    gap: 0.125rem;
+  }
+}
+
+/* Efectos hover para las publicaciones */
+.group:hover .group-hover\:bg-opacity-50 {
+  background-opacity: 0.5;
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Settings as SettingsIcon, Bell, Shield, Palette, Globe, Save } from 'lucide-react';
+import { useSettings } from '../../contexts/SettingsContext';
 
 const Settings: React.FC = () => {
+  const { language, theme, setLanguage, setTheme, t } = useSettings();
   const [settings, setSettings] = useState({
     notifications: {
       email: true,
@@ -13,10 +15,6 @@ const Settings: React.FC = () => {
       profilePublic: true,
       showEmail: false,
       allowMessages: true,
-    },
-    appearance: {
-      theme: 'light',
-      language: 'es',
     },
   });
 
@@ -39,22 +37,22 @@ const Settings: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex items-center space-x-3 mb-8">
         <SettingsIcon className="w-8 h-8 text-blue-600" />
-        <h1 className="text-3xl font-bold text-gray-800">Configuración</h1>
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">{t('settings.title')}</h1>
       </div>
 
       <div className="space-y-8">
         {/* Notificaciones */}
-        <div className="glass-effect rounded-2xl p-6">
+        <div className="glass-effect rounded-2xl p-6 dark:bg-gray-800/80 dark:border-gray-700/20">
           <div className="flex items-center space-x-3 mb-6">
             <Bell className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-gray-800">Notificaciones</h2>
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{t('settings.notifications')}</h2>
           </div>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Notificaciones por correo</h3>
-                <p className="text-sm text-gray-600">Recibe notificaciones en tu correo electrónico</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.emailNotifications')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.emailNotificationsDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -69,8 +67,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Notificaciones del navegador</h3>
-                <p className="text-sm text-gray-600">Recibe notificaciones en el navegador</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.browserNotifications')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.browserNotificationsDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -85,8 +83,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Comentarios</h3>
-                <p className="text-sm text-gray-600">Notificar cuando comenten tus publicaciones</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.comments')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.commentsDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -101,8 +99,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Me gusta</h3>
-                <p className="text-sm text-gray-600">Notificar cuando den me gusta a tus publicaciones</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.likes')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.likesDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -118,17 +116,17 @@ const Settings: React.FC = () => {
         </div>
 
         {/* Privacidad */}
-        <div className="glass-effect rounded-2xl p-6">
+        <div className="glass-effect rounded-2xl p-6 dark:bg-gray-800/80 dark:border-gray-700/20">
           <div className="flex items-center space-x-3 mb-6">
             <Shield className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-gray-800">Privacidad</h2>
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{t('settings.privacy')}</h2>
           </div>
           
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Perfil público</h3>
-                <p className="text-sm text-gray-600">Permite que otros usuarios vean tu perfil</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.publicProfile')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.publicProfileDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -143,8 +141,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Mostrar correo</h3>
-                <p className="text-sm text-gray-600">Mostrar tu correo en el perfil público</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.showEmail')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.showEmailDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -159,8 +157,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Permitir mensajes</h3>
-                <p className="text-sm text-gray-600">Permite que otros usuarios te envíen mensajes</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300">{t('settings.allowMessages')}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('settings.allowMessagesDesc')}</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -176,36 +174,35 @@ const Settings: React.FC = () => {
         </div>
 
         {/* Apariencia */}
-        <div className="glass-effect rounded-2xl p-6">
+        <div className="glass-effect rounded-2xl p-6 dark:bg-gray-800/80 dark:border-gray-700/20">
           <div className="flex items-center space-x-3 mb-6">
             <Palette className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-gray-800">Apariencia</h2>
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">{t('settings.appearance')}</h2>
           </div>
           
           <div className="space-y-4">
             <div>
-              <h3 className="font-medium text-gray-700 mb-2">Tema</h3>
+              <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">{t('settings.theme')}</h3>
               <select
-                value={settings.appearance.theme}
-                onChange={(e) => updateSetting('appearance', 'theme', e.target.value)}
-                className="input-field"
+                value={theme}
+                onChange={(e) => setTheme(e.target.value as any)}
+                className="input-field dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
               >
-                <option value="light">Claro</option>
-                <option value="dark">Oscuro</option>
-                <option value="auto">Automático</option>
+                <option value="light">{t('theme.light')}</option>
+                <option value="dark">{t('theme.dark')}</option>
+                <option value="auto">{t('theme.auto')}</option>
               </select>
             </div>
 
             <div>
-              <h3 className="font-medium text-gray-700 mb-2">Idioma</h3>
+              <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">{t('settings.language')}</h3>
               <select
-                value={settings.appearance.language}
-                onChange={(e) => updateSetting('appearance', 'language', e.target.value)}
-                className="input-field"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as any)}
+                className="input-field dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
               >
-                <option value="es">Español</option>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
+                <option value="es">{t('language.es')}</option>
+                <option value="en">{t('language.en')}</option>
               </select>
             </div>
           </div>
@@ -218,7 +215,7 @@ const Settings: React.FC = () => {
             className="btn-primary flex items-center space-x-2"
           >
             <Save className="w-4 h-4" />
-            <span>Guardar Configuración</span>
+            <span>{t('settings.save')}</span>
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { useSettings } from '../../contexts/SettingsContext';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -19,6 +20,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [error, setError] = useState('');
 
   const { login, signup } = useAuth();
+  const { t } = useSettings();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,15 +59,15 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center sidebar-overlay">
-      <div className="glass-effect rounded-2xl p-8 w-full max-w-md mx-4 animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center sidebar-overlay dark:bg-black/70">
+      <div className="glass-effect rounded-2xl p-8 w-full max-w-md mx-4 animate-fade-in dark:bg-gray-800/80 dark:border-gray-700/20">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">
-            {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+            {isLogin ? t('auth.login') : t('auth.signup')}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-700"
           >
             <X className="w-5 h-5" />
           </button>
@@ -78,10 +80,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="text"
                 name="username"
-                placeholder="Nombre de usuario"
+                placeholder={t('auth.username')}
                 value={formData.username}
                 onChange={handleInputChange}
-                className="input-field pl-10"
+                className="input-field pl-10 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400"
                 required={!isLogin}
               />
             </div>
@@ -92,10 +94,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <input
               type="email"
               name="email"
-              placeholder="Correo electrónico"
+              placeholder={t('auth.email')}
               value={formData.email}
               onChange={handleInputChange}
-              className="input-field pl-10"
+              className="input-field pl-10 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400"
               required
             />
           </div>
@@ -105,23 +107,23 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             <input
               type={showPassword ? 'text' : 'password'}
               name="password"
-              placeholder="Contraseña"
+              placeholder={t('auth.password')}
               value={formData.password}
               onChange={handleInputChange}
-              className="input-field pl-10 pr-10"
+              className="input-field pl-10 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder-gray-400"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
             >
               {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </button>
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
               {error}
             </div>
           )}
@@ -131,22 +133,22 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             disabled={loading}
             className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Cargando...' : (isLogin ? 'Iniciar Sesión' : 'Crear Cuenta')}
+            {loading ? t('auth.loading') : (isLogin ? t('auth.login') : t('auth.signup'))}
           </button>
         </form>
 
         <div className="mt-6 text-center">
-          <p className="text-gray-600">
-            {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}
+          <p className="text-gray-600 dark:text-gray-400">
+            {isLogin ? t('auth.noAccount') : t('auth.hasAccount')}
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
                 setError('');
                 setFormData({ username: '', email: '', password: '' });
               }}
-              className="ml-2 text-blue-600 hover:text-blue-700 font-medium"
+              className="ml-2 text-blue-600 hover:text-blue-700 font-medium dark:text-blue-400 dark:hover:text-blue-300"
             >
-              {isLogin ? 'Crear cuenta' : 'Iniciar sesión'}
+              {isLogin ? t('auth.createAccount') : t('auth.login')}
             </button>
           </p>
         </div>

@@ -1,5 +1,11 @@
 const cloudinary = require('cloudinary').v2;
 
+// Verificar que las variables de entorno estén configuradas
+if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+  console.error('❌ ERROR: Variables de Cloudinary no configuradas');
+  console.error('Por favor configura CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY y CLOUDINARY_API_SECRET en tu archivo .env');
+}
+
 // Configuración de Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,9 +13,16 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+console.log('🔧 Cloudinary configurado con cloud_name:', process.env.CLOUDINARY_CLOUD_NAME);
+
 // Función para subir imagen a Cloudinary
 const uploadImage = async (buffer, options = {}) => {
   return new Promise((resolve, reject) => {
+    if (!buffer || buffer.length === 0) {
+      reject(new Error('Buffer de imagen vacío'));
+      return;
+    }
+
     const uploadOptions = {
       resource_type: 'auto',
       folder: 'blog-images',
@@ -18,12 +31,16 @@ const uploadImage = async (buffer, options = {}) => {
       ...options
     };
 
+    console.log('📤 Subiendo imagen a Cloudinary...');
+
     cloudinary.uploader.upload_stream(
       uploadOptions,
       (error, result) => {
         if (error) {
+          console.error('❌ Error de Cloudinary:', error);
           reject(error);
         } else {
+          console.log('✅ Imagen subida exitosamente:', result.secure_url);
           resolve(result);
         }
       }

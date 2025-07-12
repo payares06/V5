@@ -103,19 +103,29 @@ router.post('/', auth, uploadFiles, handleMulterError, [
 
     // Procesar imágenes si existen
     if (req.files && req.files.images) {
+      console.log(`📸 Procesando ${req.files.images.length} imágenes...`);
+      
       const imagePromises = req.files.images.map(async (file) => {
         try {
+          console.log(`📤 Subiendo imagen: ${file.originalname} (${file.size} bytes)`);
           const result = await uploadImage(file.buffer, {
             public_id: `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
           });
+          console.log(`✅ Imagen subida: ${result.secure_url}`);
           return result.secure_url;
         } catch (error) {
-          console.error('Error subiendo imagen:', error);
-          throw new Error('Error al subir imagen');
+          console.error('❌ Error subiendo imagen:', error);
+          throw new Error(`Error al subir imagen: ${error.message}`);
         }
       });
 
-      postData.images = await Promise.all(imagePromises);
+      try {
+        postData.images = await Promise.all(imagePromises);
+        console.log(`✅ Todas las imágenes subidas exitosamente`);
+      } catch (error) {
+        console.error('❌ Error en Promise.all de imágenes:', error);
+        throw error;
+      }
     }
 
     // Procesar documentos si existen

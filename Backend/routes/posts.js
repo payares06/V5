@@ -9,8 +9,8 @@ const router = express.Router();
 
 // @route   GET /api/posts
 // @desc    Obtener todas las publicaciones
-// @access  Private
-router.get('/', auth, async (req, res) => {
+// @access  Public
+router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;

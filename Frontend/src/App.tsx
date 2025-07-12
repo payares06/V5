@@ -15,7 +15,11 @@ const AppContent: React.FC = () => {
   const [refreshPosts, setRefreshPosts] = useState(0);
 
   const handleCreatePost = () => {
-    setCreatePostModalOpen(true);
+    if (user) {
+      setCreatePostModalOpen(true);
+    } else {
+      setAuthModalOpen(true);
+    }
   };
 
   const handlePostCreated = () => {
@@ -30,52 +34,33 @@ const AppContent: React.FC = () => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="glass-effect rounded-2xl p-8 max-w-md w-full mx-4 text-center">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-            Mi Blog Personal
-          </h1>
-          <p className="text-gray-600 mb-6">
-            Comparte tus ideas, imágenes, documentos y enlaces con el mundo
-          </p>
-          <button
-            onClick={() => setAuthModalOpen(true)}
-            className="btn-primary w-full"
-          >
-            Comenzar
-          </button>
-        </div>
-
-        <AuthModal
-          isOpen={authModalOpen}
-          onClose={() => setAuthModalOpen(false)}
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen">
       <Header
+        user={user}
         onMenuClick={() => setSidebarOpen(true)}
         onCreatePost={handleCreatePost}
+        onLogin={() => setAuthModalOpen(true)}
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <PostFeed key={refreshPosts} />
       </main>
 
-      <Sidebar
+      {user && <Sidebar
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
-      />
+      />}
 
-      <CreatePostModal
+      {user && <CreatePostModal
         isOpen={createPostModalOpen}
         onClose={() => setCreatePostModalOpen(false)}
         onPostCreated={handlePostCreated}
+      />}
+
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
       />
     </div>
   );

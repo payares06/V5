@@ -53,7 +53,7 @@ const Settings: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Notificaciones por email</h3>
+                <h3 className="font-medium text-gray-700">Notificaciones por correo</h3>
                 <p className="text-sm text-gray-600">Recibe notificaciones en tu correo electrónico</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -69,7 +69,7 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Notificaciones push</h3>
+                <h3 className="font-medium text-gray-700">Notificaciones del navegador</h3>
                 <p className="text-sm text-gray-600">Recibe notificaciones en el navegador</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -102,7 +102,7 @@ const Settings: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-medium text-gray-700">Me gusta</h3>
-                <p className="text-sm text-gray-600">Notificar cuando den like a tus publicaciones</p>
+                <p className="text-sm text-gray-600">Notificar cuando den me gusta a tus publicaciones</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
@@ -143,8 +143,8 @@ const Settings: React.FC = () => {
 
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="font-medium text-gray-700">Mostrar email</h3>
-                <p className="text-sm text-gray-600">Mostrar tu email en el perfil público</p>
+                <h3 className="font-medium text-gray-700">Mostrar correo</h3>
+                <p className="text-sm text-gray-600">Mostrar tu correo en el perfil público</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input

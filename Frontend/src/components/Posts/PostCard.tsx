@@ -3,6 +3,7 @@ import { Heart, MessageCircle, Share2, Download, ExternalLink, Calendar, User } 
 import { Post } from '../../types';
 import { postsAPI } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
+import ImageModal from '../UI/ImageModal';
 
 interface PostCardProps {
   post: Post;
@@ -14,6 +15,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate }) => {
   const [showComments, setShowComments] = useState(false);
   const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(false);
+  const [imageModalOpen, setImageModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleLike = async () => {
     try {
@@ -38,6 +41,27 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const openImageModal = (index: number) => {
+    setCurrentImageIndex(index);
+    setImageModalOpen(true);
+  };
+
+  const closeImageModal = () => {
+    setImageModalOpen(false);
+  };
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? (post.images?.length || 1) - 1 : prev - 1
+    );
+  };
+
+  const goToNextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === (post.images?.length || 1) - 1 ? 0 : prev + 1
+    );
   };
 
   const formatDate = (dateString: string) => {
@@ -79,13 +103,19 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate }) => {
         <div className="mb-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {post.images.map((image, index) => (
-              <div key={index} className="relative group">
+              <div key={index} className="relative group cursor-pointer" onClick={() => openImageModal(index)}>
                 <img
                   src={image}
                   alt={`Imagen ${index + 1}`}
-                  className="w-full h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow"
+                  className="w-full h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg" />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all rounded-lg flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-white bg-opacity-90 rounded-full p-2">
+                    <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -231,6 +261,18 @@ const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate }) => {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Modal de imagen */}
+      {post.images && post.images.length > 0 && (
+        <ImageModal
+          isOpen={imageModalOpen}
+          onClose={closeImageModal}
+          images={post.images}
+          currentIndex={currentImageIndex}
+          onPrevious={goToPreviousImage}
+          onNext={goToNextImage}
+        />
       )}
     </article>
   );

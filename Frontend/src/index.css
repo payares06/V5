@@ -28,9 +28,46 @@
   .input-field {
     @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white/50 backdrop-blur-sm;
   }
+  
+  .image-zoom-cursor {
+    cursor: zoom-in;
+  }
+  
+  .image-zoom-cursor:hover {
+    transform: scale(1.02);
+  }
 }
 
 .sidebar-overlay {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
+}
+
+/* Animaciones para el modal de imágenes */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes imageZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-fade-in {
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+.image-zoom-in {
+  animation: imageZoomIn 0.3s ease-out;
 }

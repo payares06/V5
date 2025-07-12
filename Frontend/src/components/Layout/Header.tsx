@@ -19,9 +19,12 @@ const Header: React.FC<HeaderProps> = ({ user, onMenuClick, onCreatePost, onLogi
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <button
+              onClick={() => navigate('/')}
+              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+            >
               Mi Blog
-            </h1>
+            </button>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -68,14 +71,9 @@ const Header: React.FC<HeaderProps> = ({ user, onMenuClick, onCreatePost, onLogi
               >
                 <LogIn className="w-5 h-5" />
                 <span className="hidden sm:inline font-medium">Iniciar Sesión</span>
-          <button
-            )
-            }
-            onClick={() => navigate('/')}
-            className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
-          >
+              </button>
             )}
-          </button>
+          </div>
         </div>
       </div>
     </header>

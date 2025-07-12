@@ -123,17 +123,17 @@ const MyLinks: React.FC = () => {
           <div className="glass-effect rounded-2xl p-8">
             <LinkIcon className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              No tienes enlaces guardados
+             No tienes enlaces guardados
             </h3>
             <p className="text-gray-600 mb-6">
-              Guarda tus enlaces favoritos para acceder a ellos fácilmente.
+             Guarda tus enlaces favoritos para acceder a ellos fácilmente.
             </p>
             <button
               onClick={() => setShowAddForm(true)}
-              className="btn-primary flex items-center space-x-2 mx-auto"
+             className="btn-primary flex items-center space-x-2 mx-auto"
             >
               <Plus className="w-4 h-4" />
-              <span>Agregar Primer Enlace</span>
+             <span>Agregar Primer Enlace</span>
             </button>
           </div>
         </div>
